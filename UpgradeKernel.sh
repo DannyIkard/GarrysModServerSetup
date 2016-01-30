@@ -21,8 +21,8 @@ echo "Debian from stable to stable-proposed-updates."
 echo "Version: $LATESTKERNEL"
 printf "%s" "Does this appear correct?  Y/N: "
 read CONFIRM
-if [ CONFIRM != "Y" ]; then
+if [ "${CONFIRM,,}" != "y" ]; then
   echo "Exiting..."
   exit 0
 fi
-apt-get -t stable-proposed-updates install $LATESTKERNEL
+sudo apt-get -t stable-proposed-updates install $LATESTKERNEL
