@@ -25,4 +25,5 @@ if [ "${CONFIRM,,}" != "y" ]; then
   echo "Exiting..."
   exit 0
 fi
+LATESTKERNEL =`echo "$LATESTKERNEL" | cut -d " " -f1
 sudo apt-get install $LATESTKERNEL
