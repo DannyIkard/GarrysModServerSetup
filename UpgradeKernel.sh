@@ -25,4 +25,4 @@ if [ "${CONFIRM,,}" != "y" ]; then
   echo "Exiting..."
   exit 0
 fi
-sudo apt-get -t stable-proposed-updates install $LATESTKERNEL
+sudo apt-get install $LATESTKERNEL
