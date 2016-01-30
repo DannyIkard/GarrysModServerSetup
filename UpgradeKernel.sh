@@ -27,6 +27,9 @@ if [ "${CONFIRM,,}" != "y" ]; then
 fi
 
 
+
 clear
 sudo apt-get install `echo "$LATESTKERNEL" | cut -d " " -f1`
+
+#Detect for "W: Possible missing firmware /lib/firmware/tigon" and do "apt-get install firmware-linux-nonfree"
 
