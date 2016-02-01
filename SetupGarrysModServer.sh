@@ -14,7 +14,7 @@ su -c "echo 'deb http://ftp.us.debian.org/debian/ testing main contrib non-free'
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get -y -t testing libc6
-sudo apt-get -y install lib32gcc1 libpng12-0 lib32stdc++6
+sudo apt-get -y install lib32gcc1 libpng12-0 lib32stdc++6 lib32tinfo5
 mkdir -p ~/Steam/steamapps/common/Starbound/ 2>/dev/null
 cd ~/steamcmd
 
@@ -34,15 +34,14 @@ sudo bash -c "cat << EOF > /usr/local/bin/garrysmodserver
 #!/bin/bash
 case \"\\\$1\" in
 start)
-cd ~/Steam/steamapps/common/GarrysMod/linux64
-./starbound_server &
+cd ~/Steam/steamapps/common/GarrysMod
+./srcds_run -game garrysmod +maxplayers 12 +sv_setsteamaccount DF0C875F201DCBB35B6DB58C9B2E973A +map gm_flatgrass &
 ;;
 stop)
-killall -SIGINT starbound_server
+killall -SIGTERM srcds_linux
 ;;
 restart)
-$0 stop
-$0 start
+killall -SIGINT srcds_linux
 ;;
 esac
 exit 0
@@ -91,5 +90,6 @@ sudo systemctl enable garrysmodserver.service
 
 
 #----------- Run SteamCMD to update or install ---------------------------
-
+cd /home/k12/Steam/steamapps/common/GarrysModDS
+./srcds_run -game garrysmod +maxplayers 12 +sv_setsteamaccount DF0C875F201DCBB35B6DB58C9B2E973A +map gm_flatgrass
 exit 0
