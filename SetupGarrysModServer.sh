@@ -130,6 +130,22 @@ EOF"
 
 
 
+
+#----------- Create readme ------------------------------------
+USER=$(whoami)
+sudo bash -c "cat << EOF > /home/$USER/Desktop/GMOD_ReadMe.txt
+To start/stop/restart:
+     sudo systemctl start/stop/restart garrysmodserver.service
+
+To enter the console:
+     screen -x GMODDS
+     Hit CTRL +A +D to leave the console and leave the server running
+
+To see what's running on a system type 'top' in a console.  Hit ctrl-c to exit it.
+EOF"
+
+
+
 #----------- Run SteamCMD to update or install ---------------------------
 printf "\n\n%s\n" "You can edit the startup script in the garrys mod folder at:"
 echo "/home/$USER/Steam/steamapps/common/GarrysModDS/srcds_startupscript.sh"
