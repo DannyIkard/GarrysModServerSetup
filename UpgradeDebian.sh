@@ -30,6 +30,7 @@ fi
 
 clear
 sudo apt-get install `echo "$LATESTKERNEL" | cut -d " " -f1`
+sudo apt-get install firmware-linux-nonfree
 
-#Detect for "W: Possible missing firmware /lib/firmware/tigon" and do "apt-get install firmware-linux-nonfree"
+
 

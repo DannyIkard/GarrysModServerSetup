@@ -1,18 +1,39 @@
 #!/bin/bash
 clear
 
+USER=$(whoami)
+SudoWriteLineIfNotThere() { su -c "grep -q -F '$1' $2 || echo '$1' >> $2" root; }
 
 #----------- Get steam username and password for SteamCMD login ----------
 sudo printf "%s" ""
 printf "\n\n%s" "Enter your steam login: "; read STEAMUSERNAME
 printf "%s" "Enter your steam password: "; read -s STEAMPASSWORD
 
+DSACCOUNT="`cat DSACCOUNT 2>/dev/null`"
+printf "\n\n%s\n" "You can leave the following blank and just press return if you"
+echo "choose not to use a workshop collection or dedicated server account"
+printf "\n\n%s\n" "Dedicated game server account ID - You can get this"
+echo "from https://steamcommunity.com/dev/managegameservers"
+read -e -p "Enter your dedicated server account ID: " -i "$DSACCOUNT" DSACCOUNT
+echo "$DSACCOUNT" >DSACCOUNT
+
+WORKSHOPCOLLECTION="`cat WORKSHOPCOLLECTION 2>/dev/null`"
+printf "\n\n%s\n" "Workshop Collection - Once you make a collection"
+echo "for Garry's Mod the ID will be in the URL.  Something like 123456789"
+read -e -p "Enter your workshop collection ID: " -i "$WORKSHOPCOLLECTION" WORKSHOPCOLLECTION
+echo "$WORKSHOPCOLLECTION" >WORKSHOPCOLLECTION
+
+AUTHKEY="`cat AUTHKEY 2>/dev/null`"
+printf "\n\n%s\n" "Authkey - Your authkey can be created and obtained"
+echo "from https://steamcommunity.com/dev/apikey"
+read -e -p "Enter your authkey: " -i "$AUTHKEY" AUTHKEY
+echo "$AUTHKEY" >AUTHKEY
 
 
 #----------- Install dependencies and directories ------------------------
-su -c "echo 'deb http://ftp.us.debian.org/debian/ testing main contrib non-free' >> /etc/apt/sources.list" root
+printf "\n%s" "Enter this machines root "
+SudoWriteLineIfNotThere "deb http://ftp.us.debian.org/debian/ testing main contrib non-free" "/etc/apt/sources.list"
 sudo apt-get update
-sudo apt-get upgrade
 sudo apt-get -y -t testing libc6
 sudo apt-get -y install lib32gcc1 libpng12-0 lib32stdc++6 lib32tinfo5
 mkdir -p ~/Steam/steamapps/common/Starbound/ 2>/dev/null
@@ -34,11 +55,15 @@ sudo bash -c "cat << EOF > /usr/local/bin/garrysmodserver
 #!/bin/bash
 case \"\\\$1\" in
 start)
-cd ~/Steam/steamapps/common/GarrysMod
-./srcds_run -game garrysmod +maxplayers 12 +sv_setsteamaccount DF0C875F201DCBB35B6DB58C9B2E973A +map gm_flatgrass &
+cd /home/$USER/Steam/steamapps/common/GarrysModDS
+bash srcds_startupscript.sh
 ;;
 stop)
+killall -SIGINT srcds_linux
+sleep 7
 killall -SIGTERM srcds_linux
+sleep 1
+screen -X -S "GMODDS" quit
 ;;
 restart)
 killall -SIGINT srcds_linux
@@ -51,7 +76,7 @@ sudo chmod +x /usr/local/bin/garrysmodserver
 
 
 #----------- Create systemctl service ------------------------------------
-USER=$(whoami)
+
 sudo bash -c "cat << EOF > /lib/systemd/system/garrysmodserver.service
 [Unit]
 Description=Manage Garrys Mod Server
@@ -88,8 +113,29 @@ sudo systemctl enable garrysmodserver.service
 
 
 
+#----------- Create startup script ------------------------------------
+USER=$(whoami)
+sudo bash -c "cat << EOF > /home/$USER/Steam/steamapps/common/GarrysModDS/srcds_startupscript.sh
+#!/bin/bash
+MAP=\"gm_flatgrass\"
+MAXPLAYERS=\"12\"
+#---- You can get this from https://steamcommunity.com/dev/managegameservers
+DSACCOUNT=\"$DSACCOUNT\"
+#---- Once you make a collection for Garry's Mod the ID will be in the URL.  Something like 123456789
+WORKSHOPCOLLECTION=\"$WORKSHOPCOLLECTION\"
+#---- Your authkey can be created and obtained from https://steamcommunity.com/dev/apikey
+AUTHKEY=\"$AUTHKEY\"
+screen -A -m -d -S GMODDS /home/$USER/Steam/steamapps/common/GarrysModDS/srcds_run -game garrysmod +maxplayers \\\$MAXPLAYERS +sv_setsteamaccount \\\$DSACCOUNT +host_workshop_collection \\\$WORKSHOPCOLLECTION -authkey \\\$AUTHKEY +map \\\$MAP
+EOF"
+
+
 
 #----------- Run SteamCMD to update or install ---------------------------
-cd /home/k12/Steam/steamapps/common/GarrysModDS
-./srcds_run -game garrysmod +maxplayers 12 +sv_setsteamaccount DF0C875F201DCBB35B6DB58C9B2E973A +map gm_flatgrass
+printf "\n\n%s\n" "You can edit the startup script in the garrys mod folder at:"
+echo "/home/$USER/Steam/steamapps/common/GarrysModDS/srcds_startupscript.sh"
+echo "You can enter the console with 'screen -x GMODDS' and exit the console "
+echo "by pressing 'CTRL +A +D'"
+echo "You can also stop, start and restart the server with systemctl commands"
+echo "such as 'sudo systemctl start garrysmodserver.service'"
+echo ""
 exit 0
