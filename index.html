@@ -1,45 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>GarrysModServerSetup by DannyIkard</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <title>GarrysModServerSetup by DannyIkard</title>
   </head>
+
   <body>
+    <div id="container">
+      <div class="inner">
 
-      <header>
-        <h1>GarrysModServerSetup</h1>
-        <p></p>
-      </header>
+        <header>
+          <h1>GarrysModServerSetup</h1>
+          <h2></h2>
+        </header>
 
-      <div id="banner">
-        <span id="logo"></span>
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/DannyIkard/GarrysModServerSetup/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/DannyIkard/GarrysModServerSetup/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/DannyIkard/GarrysModServerSetup" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
 
-        <a href="https://github.com/DannyIkard/GarrysModServerSetup" class="button fork"><strong>View On GitHub</strong></a>
-        <div class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/zipball/master" class="button">ZIP</a></li>
-            <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/tarball/master" class="button">TAR</a></li>
-          </ul>
-        </div>
-      </div><!-- end banner -->
+        <hr>
 
-    <div class="wrapper">
-      <nav>
-        <ul></ul>
-      </nav>
-      <section>
-        <h1>
+        <section id="main_content">
+          <h1>
 <a id="garrysmodserversetup" class="anchor" href="#garrysmodserversetup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GarrysModServerSetup</h1>
 
 <p>This will help you get your Debian server working. 
@@ -73,14 +65,55 @@ This is pretty much it for networking. You might want to turn off your firewall,
 <p>You will have to install Virtualbox with Debian Jessie for this to work if you are not a debian user.
 Set it to 4880 MB, and set the amount of cores. </p>
 
-<p>Download the script, and extract the .ZIP </p>
-      </section>
-      <footer>
-        <p>Project maintained by <a href="https://github.com/DannyIkard">DannyIkard</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
-      </footer>
+<p>Download the script, and extract the .ZIP, then open the folder.
+Launch the SetupGarrysModServer.sh script.
+It's very self-explanatory, so I'm going to skip the part. </p>
+
+<h1>
+<a id="after" class="anchor" href="#after" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>After...</h1>
+
+<p>So, there should be a GMOD_ReadMe.txt. Read it, and it should tell you how to turn it on.
+Lets say you turn on GMod, and go look for your server, you join, but it's laggy. I had this issue, but I put in something to make it work. Go to /home/gm/Steam/steamapps/common/GarrysModDS/garrysmod/cfg/server.cfg (Directory may vary) and put in (anywhere) the following:</p>
+
+<p>sv_minrate 0
+sv_maxrate 0
+sv_minupdaterate 10
+sv_maxupdaterate 66</p>
+
+<p>It might not work for everyone, but it worked for me. </p>
+
+<h1>
+<a id="more-servercfg" class="anchor" href="#more-servercfg" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More Server.cfg</h1>
+
+<p>You can customize your server with the server.cfg. Here's a good website to help! <a href="http://robinschoors.com/?p=244">http://robinschoors.com/?p=244</a>
+Copy the text into your server.cfg. </p>
+
+<h1>
+<a id="mounting-css" class="anchor" href="#mounting-css" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mounting CSS</h1>
+
+<p>It will install CSS:Dedicated server for you. But, to mount it, follow these steps. 
+Go to /home/gm/Steam/steamapps/common/GarrysModDS/garrysmod/cfg/mount.cfg
+Open it, and you will see something like this:</p>
+
+<p>"mountcfg"
+ {
+    //"cstrike" "C:\steamcmd\steamapps\common\Counter-Strike Source Dedicated Server\cstrike"
+    //"tf"      "C:\mytf2server\tf"
+ }</p>
+
+<p>First, find the //"cstrike", and remove the 2 //'s. then, replace the directory (The C:\steamcmd\blahblah in the quotes)  with "/home/gm/Steam/steamapps/common/Counter-Strike Source Dedicated Server/cstrike/" (Directory may vary), save, and restart server.</p>
+
+<p>That would be about everything, you can contact me on steam or something if you have issues.
+<a href="http://steamcommunity.com/id/Senvr11/">http://steamcommunity.com/id/Senvr11/</a></p>
+        </section>
+
+        <footer>
+          GarrysModServerSetup is maintained by <a href="https://github.com/DannyIkard">DannyIkard</a><br>
+          This page was generated by <a href="https://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>
