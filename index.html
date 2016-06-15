@@ -4,29 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>GarrysModServerSetup by DannyIkard</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
     <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
-    <div class="wrapper">
+
       <header>
         <h1>GarrysModServerSetup</h1>
         <p></p>
-
-        <p class="view"><a href="https://github.com/DannyIkard/GarrysModServerSetup">View the Project on GitHub <small>DannyIkard/GarrysModServerSetup</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/DannyIkard/GarrysModServerSetup">View On <strong>GitHub</strong></a></li>
-        </ul>
       </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/DannyIkard/GarrysModServerSetup" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/DannyIkard/GarrysModServerSetup/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
       <section>
         <h1>
 <a id="garrysmodserversetup" class="anchor" href="#garrysmodserversetup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GarrysModServerSetup</h1>
@@ -47,25 +58,29 @@ DirectX: Version 9.0c
 Network: Broadband Internet connection 
 Storage: 10 GB available space</p>
 
-<p>Always try to do better than recommended!</p>
+<p>Note, It is NOT recommended to play on the server and host the server on the same PC.</p>
 
 <h1>
-<a id="post-setup" class="anchor" href="#post-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Post-Setup:</h1>
-
-<p>This is the setup before we go and install the server.</p>
-
-<h2>
-<a id="network" class="anchor" href="#network" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Network</h2>
+<a id="network" class="anchor" href="#network" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Network</h1>
 
 <p>This is the part for the NETWORKING.
-You're going to need to forward the port 27015 through 27005, both TCP and UDP.</p>
+You're going to need to forward the port 27015 through 27005, both TCP and UDP.
+This is pretty much it for networking. You might want to turn off your firewall, too.</p>
+
+<h1>
+<a id="getting-the-script" class="anchor" href="#getting-the-script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting the script</h1>
+
+<p>You will have to install Virtualbox with Debian Jessie for this to work if you are not a debian user.
+Set it to 4880 MB, and set the amount of cores. </p>
+
+<p>Download the script, and extract the .ZIP </p>
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/DannyIkard">DannyIkard</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p>Project maintained by <a href="https://github.com/DannyIkard">DannyIkard</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
