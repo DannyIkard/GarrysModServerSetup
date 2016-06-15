@@ -1,0 +1,6 @@
+{
+  "name": "GarrysModServerSetup",
+  "tagline": "",
+  "body": "# GarrysModServerSetup\r\nThis will help you get your Debian server working. \r\nYou can install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) if you have Windows or some other operating system.\r\n\r\n#Requirements\r\nYou're gonna need an OK computer. Here's the recommended computer specs for GMod:\r\n\r\nOS:  Windows® 7/8/8.1/10  (You can use Debian for the server.) \r\nProcessor: 2.5 GHz Processor or better \r\nMemory: 8 GB RAM \r\nGraphics: 1GB dedicated VRAM or better \r\nDirectX: Version 9.0c \r\nNetwork: Broadband Internet connection \r\nStorage: 10 GB available space\r\n\r\n\r\nAlways try to do better than recommended!\r\n\r\n#Post-setup: Network\r\nThis is the part for the NETWORKING.\r\nYou're going to need to forward the port 27015 through 27005, both TCP and UDP.\r\n\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
