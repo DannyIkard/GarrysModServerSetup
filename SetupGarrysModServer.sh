@@ -35,17 +35,21 @@ printf "\n%s" "Enter this machines root "
 SudoWriteLineIfNotThere "deb http://ftp.us.debian.org/debian/ testing main contrib non-free" "/etc/apt/sources.list"
 sudo apt-get update
 sudo apt-get -y -t testing libc6
-sudo apt-get -y install lib32gcc1 libpng12-0 lib32stdc++6 lib32tinfo5
-mkdir -p ~/Steam/steamapps/common/Starbound/ 2>/dev/null
+sudo apt-get -y install lib32gcc1 libpng12-0 lib32stdc++6 lib32tinfo5 
+sudo apt-get install -y lib32stdc++6 lib32z1 lib32ncurses5
+apt-get install lib32ncurses5 lib32z1v
 cd ~/steamcmd
 
 
 
 #-----------If steamcmd.sh doesn't exist, download it --------------------
-if [ ! -f steamcmd.sh ]; then
+if [ ! -f ~/steamcmd.sh ]; then
+  mkdir ~/steamcmd
+  cd ~/steamcmd
   wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
   tar zxvf steamcmd_linux.tar.gz
   chmod +x steamcmd.sh
+  cd -
 fi
 
 
@@ -60,7 +64,7 @@ bash srcds_startupscript.sh
 ;;
 stop)
 killall -SIGINT srcds_linux
-sleep 7
+sleep 5
 killall -SIGTERM srcds_linux
 sleep 1
 screen -X -S "GMODDS" quit
@@ -117,7 +121,9 @@ sudo systemctl enable garrysmodserver.service
 USER=$(whoami)
 sudo bash -c "cat << EOF > /home/$USER/Steam/steamapps/common/GarrysModDS/srcds_startupscript.sh
 #!/bin/bash
+read -e -p "Enter the default map you want your gmod server to start on: " -i "gm_flatgrass" MAP
 MAP=\"gm_flatgrass\"
+read -e -p "Enter maximum players: " -i "12" MAXPLAYERS
 MAXPLAYERS=\"12\"
 #---- You can get this from https://steamcommunity.com/dev/managegameservers
 DSACCOUNT=\"$DSACCOUNT\"
